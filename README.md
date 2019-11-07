@@ -61,6 +61,7 @@ dotnet run
 
 This will spin up the API and make it available at http://localhost:5000.  Note that TLS has been disabled and the cors policy has been deliberately relaxed for the purpose of this sample solution
 
+A few request scenarios can be found in the bundled postman (https://www.getpostman.com/) collection you can find in /Api/Postman. Both the collection and environment files can be imported into a running postman instance.  The environment is configured to point at the locally running API host.
 
 #### Front end
 
@@ -76,3 +77,4 @@ ng serve
 ```
 
 This will spin up the front end angular app on url http://localhost:4200 configured to point at the running API instance
+
