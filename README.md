@@ -54,7 +54,23 @@ In the /Client folder is an example Angular 8.0 based javascript front end provi
 Clone this repository and follow the options below for running the solution e2e:
 
 ### Docker based execution
+Both the WebApi and the Angular client app can be run as docker containers.  Once built a local docker cluster has been started both will be available on the following ports:
 
+api - http://localhost:5000
+client - http://localhost:5001
+
+#### Requirements
+ - Ensure Docker for Mac, Windows or Linux is installed
+
+#### Running
+Execute the following commands from the repository root:
+
+```bash
+docker-compose build
+docker-compose up
+```
+
+This will build both
 
 ### Manual execution
 
@@ -95,8 +111,6 @@ This will spin up the front end angular app on url http://localhost:4200 configu
 
 
 # Status
-
-Items complete meet the goals required, additional
 
 - [X] Api Functionality
 - [X] Api Swagger
