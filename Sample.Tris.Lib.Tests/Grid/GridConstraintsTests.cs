@@ -34,7 +34,7 @@ namespace Sample.Tris.Lib.Tests.Grid
         [Theory]
         [InlineData(1, 1, 1, 1, 1)]
         [InlineData(1, 2, 3, 6, 3)]
-        public void Constructor_WithValidParameters_SetsValidWidthAndHeightProps(uint rowCount, uint columnCount, uint cellSpan, uint expectedWidth, uint expectedHeight)
+        public void Constructor_WithValidParameters_SetsValidWidthAndHeightProps(int rowCount, int columnCount, int cellSpan, int expectedWidth, int expectedHeight)
         {
             var constraints = new GridConstraints(rowCount, columnCount, cellSpan);
             Assert.Equal(expectedWidth, constraints.Width);

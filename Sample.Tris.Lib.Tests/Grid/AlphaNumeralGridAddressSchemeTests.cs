@@ -19,27 +19,24 @@ namespace Sample.Tris.Lib.Tests.Grid
         [Fact]
         public void GetGridAddressForRowColumn_WithRowLessThan1_ThrowsException()
         {
-            ArgumentException ex = Assert.Throws<ArgumentException>(() => _gridAddressScheme.GetGridAddressForRowColumn(0, 1));
-            Assert.Equal("row", ex.ParamName);
-            Assert.Equal("row must be 1 or greater (Parameter 'row')", ex.Message);
+            GridAddressOutOfBoundsException ex = Assert.Throws<GridAddressOutOfBoundsException>(() => _gridAddressScheme.GetGridAddressForRowColumn(0, 1));
         }
 
         [Fact]
         public void GetGridAddressForRowColumn_WithColumnLessThan1_ThrowsException()
         {
-            ArgumentException ex = Assert.Throws<ArgumentException>(() => _gridAddressScheme.GetGridAddressForRowColumn(1, 0));
-            Assert.Equal("column", ex.ParamName);
-            Assert.Equal("column must be 1 or greater (Parameter 'column')", ex.Message);
+            var ex = Assert.Throws<GridAddressOutOfBoundsException>(() => _gridAddressScheme.GetGridAddressForRowColumn(1, 0));
         }
 
         [Theory]
         [InlineData(1, 1, "A1")]
         [InlineData(26, 1, "Z1")]
         [InlineData(27, 1, "AA1")]
-        [InlineData(uint.MaxValue, 1, "MWLQKWU1")]
-        public void GetGridAddressForRowColumn_WithValidArguments_ReturnsValidGridAddress(uint row, uint column, string expectedAddress)
+        [InlineData(int.MaxValue, 1, "MWLQKWU1")]
+        public void GetGridAddressForRowColumn_WithValidArguments_ReturnsValidGridAddress(int row, int column, string expectedAddress)
         {
             var address = _gridAddressScheme.GetGridAddressForRowColumn(row, column);
+
             Assert.Equal(row, address.Row);
             Assert.Equal(column, address.Column);
         }
@@ -52,6 +49,12 @@ namespace Sample.Tris.Lib.Tests.Grid
         public void IsAddressValid_WithNonAlphaStartingChar_ReturnsFalse()
         {
             Assert.False(_gridAddressScheme.IsAddressValid("1A"));
+        }
+
+        [Fact]
+        public void IsAddressValid_WithNoAlphaStartingChar_ReturnsFalse()
+        {
+            Assert.False(_gridAddressScheme.IsAddressValid("1"));
         }
 
         [Fact]
@@ -70,7 +73,7 @@ namespace Sample.Tris.Lib.Tests.Grid
 
         [Theory]
         [InlineData("A1")]
-        [InlineData("MWLQKWU1")]
+        [InlineData("F12")]
         public void IsAddressValid_WithValidArguments_ReturnsTrue(string address)
         {
             Assert.True(_gridAddressScheme.IsAddressValid(address));
@@ -100,21 +103,35 @@ namespace Sample.Tris.Lib.Tests.Grid
         [InlineData("1")]
         public void GetGridAddressForLabel_WithInvalidLabel_ThrowsInvalidGridReferenceException(string label)
         {
-            InvalidGridReferenceException ex = Assert.Throws<InvalidGridReferenceException>(() => _gridAddressScheme.GetGridAddressForLabel(label));
+            GridAddressFormatException ex = Assert.Throws<GridAddressFormatException>(() => _gridAddressScheme.GetGridAddressForLabel(label));
             Assert.Equal(string.Format("Grid reference '{0}' is invalid.", label), ex.Message);
         }
 
         [Theory]
-        [InlineData("B1", 2, 1)]
-        [InlineData("Z1", 26, 1)]
-        [InlineData("AA1", 27, 1)]
-        [InlineData("MWLQKWU1", uint.MaxValue, 1)]
-        public void GetGridAddressForLabel_ReturnsAddress(string label, uint expectedRow, uint expectedColumn)
+        [InlineData("A1", 1, 1)]
+        [InlineData("F12", 6, 12)]
+        public void GetGridAddressForLabel_ReturnsAddress(string label, int expectedRow, int expectedColumn)
         {
             var address = _gridAddressScheme.GetGridAddressForLabel(label);
             Assert.Equal(expectedRow, address.Row);
             Assert.Equal(expectedColumn, address.Column);
             Assert.Equal(label, address.Label);
+        }
+
+        #endregion
+
+        #region GetExtents
+
+        [Fact]
+        public void GetExtents_ReturnsMaxIntValue()
+        {
+            var extents = _gridAddressScheme.GetExtents();
+
+            Assert.Equal(int.MaxValue, extents.UpperRow);
+            Assert.Equal(int.MaxValue, extents.UpperColumn);
+
+            var address = _gridAddressScheme.GetGridAddressForRowColumn(int.MaxValue, int.MaxValue);
+            Assert.Equal(address.Label, extents.UpperAddress);
         }
 
         #endregion

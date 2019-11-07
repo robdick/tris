@@ -1,7 +1,6 @@
 namespace Sample.Tris.Lib.Services
 {
     using Sample.Tris.Lib.Geometry;
-    using Sample.Tris.Lib.Grid;
 
     /// <summary>
     /// Defines an interface for providing grid
@@ -20,8 +19,8 @@ namespace Sample.Tris.Lib.Services
         /// <summary>
         ///
         /// </summary>
-        /// <param name="gridAddress"></param>
+        /// <param name="gridLabel"></param>
         /// <returns></returns>
-        Triangle GetTriangleForGridReference(string gridAddress);
+        Triangle GetTriangleForGridLabel(string gridLabel);
     }
 }

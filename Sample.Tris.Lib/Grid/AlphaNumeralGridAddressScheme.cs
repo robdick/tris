@@ -21,12 +21,9 @@ namespace Sample.Tris.Lib.Grid
         /// <returns></returns>
         public bool IsAddressValid(string label)
         {
-            if (string.IsNullOrWhiteSpace(label))
-            {
-                throw new ArgumentNullException("label");
-            }
-
-            return Regex.IsMatch(label, POSITION_REGEX_MATCH);
+            return !string.IsNullOrWhiteSpace(label)
+                && Regex.IsMatch(label, POSITION_REGEX_MATCH)
+                && GetIndexForAlphaEncoding(label) <= int.MaxValue;
         }
 
         /// <summary>
@@ -36,14 +33,9 @@ namespace Sample.Tris.Lib.Grid
         /// <returns></returns>
         public GridAddress GetGridAddressForLabel(string label)
         {
-            if (string.IsNullOrWhiteSpace(label))
-            {
-                throw new ArgumentNullException("label");
-            }
-
             if (!IsAddressValid(label))
             {
-                throw new InvalidGridReferenceException(label);
+                throw new GridAddressFormatException(label);
             }
 
             Match match = Regex
@@ -58,20 +50,46 @@ namespace Sample.Tris.Lib.Grid
             Group rowMatchGroup = match.Groups[1];
             Group colMatchGroup = match.Groups[2];
 
-            uint row = GetIndexForAlphaEncoding(rowMatchGroup.Value);
-            uint column = Convert.ToUInt32(colMatchGroup.Value);
+            int row = GetIndexForAlphaEncoding(rowMatchGroup.Value) + 1;
+            int column = Convert.ToInt32(colMatchGroup.Value);
 
-            return new GridAddress(row + 1, column, label);
+            if (!IsRowAndColumnInBounds(row, column))
+            {
+                throw new GridAddressOutOfBoundsException(label);
+            }
+
+            return new GridAddress(row, column, label);
         }
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public GridAddress GetGridAddressForRowColumn(uint row, uint column)
+        public GridAddress GetGridAddressForRowColumn(int row, int column)
         {
-            uint count = row;
-            uint remainder;
+            if (!IsRowAndColumnInBounds(row, column))
+            {
+                throw new GridCoordsOutOfBoundsException(row, column);
+            }
+
+            string rowLabel = CreateRowLabel(row);
+
+            return new GridAddress(row, column, $"{rowLabel}{column}");
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public (int UpperRow, int UpperColumn, string UpperAddress) GetExtents()
+        {
+            return (int.MaxValue, int.MaxValue, $"{CreateRowLabel(int.MaxValue)}{int.MaxValue}");
+        }
+
+        private string CreateRowLabel(int row)
+        {
+            int count = row;
+            int remainder;
             string rowLabel = string.Empty;
 
             while (count > 0)
@@ -81,21 +99,29 @@ namespace Sample.Tris.Lib.Grid
                 count = ((count - remainder) / ALPHABET_MAX_CHARS);
             }
 
-            return new GridAddress(row, column, $"{rowLabel}{column}");
+            return rowLabel;
         }
 
-        private uint GetIndexForAlphaEncoding(string label)
+        private int GetIndexForAlphaEncoding(string label)
         {
-            uint index = 0;
-            uint pow = 1;
+            int index = 0;
+            int pow = 1;
 
             for (int charIndex = label.Length - 1; charIndex >= 0; charIndex--)
             {
-                index += (uint)(label[charIndex] - ALPHA_CHARCODE_ORIGIN + 1) * pow;
+                index += (int)(label[charIndex] - ALPHA_CHARCODE_ORIGIN) * pow;
                 pow *= ALPHABET_MAX_CHARS;
             }
 
-            return index - 1;
+            return index;
+        }
+
+        private bool IsRowAndColumnInBounds(int row, int column)
+        {
+            return (row <= int.MaxValue
+                && row > 0
+                && column <= int.MaxValue
+                && column > 0);
         }
     }
 }

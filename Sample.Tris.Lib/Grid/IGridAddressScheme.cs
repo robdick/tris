@@ -18,7 +18,7 @@ namespace Sample.Tris.Lib.Grid
         /// <param name="rowCount"></param>
         /// <param name="colCount"></param>
         /// <returns></returns>
-        GridAddress GetGridAddressForRowColumn(uint row, uint column);
+        GridAddress GetGridAddressForRowColumn(int row, int column);
 
         /// <summary>
         ///
@@ -26,5 +26,11 @@ namespace Sample.Tris.Lib.Grid
         /// <param name="label"></param>
         /// <returns></returns>
         GridAddress GetGridAddressForLabel(string label);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        (int UpperRow, int UpperColumn, string UpperAddress) GetExtents();
     }
 }

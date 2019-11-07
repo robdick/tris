@@ -28,7 +28,7 @@ namespace Sample.Tris.Lib.Grid
         /// </summary>
         /// <param name="row"></param>
         /// <param name="column"></param>
-        public GridAddress(uint row, uint column, string label)
+        public GridAddress(int row, int column, string label)
         {
             if (row < 1)
             {
@@ -60,12 +60,12 @@ namespace Sample.Tris.Lib.Grid
         ///
         /// </summary>
         /// <value></value>
-        public uint Row { get; }
+        public int Row { get; }
 
         /// <summary>
         ///
         /// </summary>
         /// <value></value>
-        public uint Column { get; }
+        public int Column { get; }
     }
 }

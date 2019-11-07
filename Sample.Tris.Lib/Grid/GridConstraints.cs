@@ -13,7 +13,7 @@ namespace Sample.Tris.Lib.Grid
         /// <param name="rowCount"></param>
         /// <param name="colCount"></param>
         /// <param name="cellSpan"></param>
-        public GridConstraints(uint rowCount, uint columnCount, uint cellSpan)
+        public GridConstraints(int rowCount, int columnCount, int cellSpan)
         {
             if (rowCount < 1)
             {
@@ -42,28 +42,28 @@ namespace Sample.Tris.Lib.Grid
         ///
         /// </summary>
         /// <value></value>
-        public uint RowCount { get; }
+        public int RowCount { get; }
 
         /// <summary>
         ///
         /// </summary>
         /// <value></value>
-        public uint ColumnCount { get; }
+        public int ColumnCount { get; }
 
         /// <summary>
         ///
         /// </summary>
         /// <value></value>
-        public uint CellSpan { get; }
+        public int CellSpan { get; }
 
         /// <summary>
         ///
         /// </summary>
-        public uint Width { get; }
+        public int Width { get; }
 
         /// <summary>
         ///
         /// </summary>
-        public uint Height { get; }
+        public int Height { get; }
     }
 }

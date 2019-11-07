@@ -5,7 +5,7 @@ namespace Sample.Tris.Lib.Exceptions
     /// <summary>
     /// Defines Exception for library validation errors
     /// </summary>
-    public abstract class TrisLibValidationException : TrisLibException
+    public class TrisLibValidationException : TrisLibException
     {
         public TrisLibValidationException(string message) : base(message) { }
     }

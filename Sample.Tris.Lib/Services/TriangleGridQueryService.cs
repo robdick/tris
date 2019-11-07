@@ -38,10 +38,9 @@ namespace Sample.Tris.Lib.Services
                 throw new InvalidGridPointsException($"Invalid set of points given {p1.ToString()},{p2.ToString()},{p3.ToString()}");
             }
 
-            uint row;
-            uint col;
+            int row, col;
             Point topLeftPoint, bottomRightPoint, topRightPoint, bottomLeftPoint;
-            Point[] pointsArr = new Point[] { p1, p2, p3 };
+            var pointsArr = new Point[] { p1, p2, p3 };
 
             topLeftPoint = GetTopLeftPoint(pointsArr);
             if (topLeftPoint == null)
@@ -55,8 +54,8 @@ namespace Sample.Tris.Lib.Services
                 return null;
             }
 
-            row = (uint)topLeftPoint.Y / _gridConstraints.CellSpan + 1;
-            col = (uint)(topLeftPoint.X / _gridConstraints.CellSpan * 2);
+            row = topLeftPoint.Y / _gridConstraints.CellSpan + 1;
+            col = (topLeftPoint.X / _gridConstraints.CellSpan * 2) + 1;
 
             bottomLeftPoint = FindPoint(topLeftPoint.X, topLeftPoint.Y + (int)_gridConstraints.CellSpan, pointsArr);
             if (bottomLeftPoint != null)
@@ -78,9 +77,41 @@ namespace Sample.Tris.Lib.Services
         /// </summary>
         /// <param name="gridAddress"></param>
         /// <returns></returns>
-        public Triangle GetTriangleForGridReference(string gridAddress)
+        public Triangle GetTriangleForGridLabel(string gridLabel)
         {
-            throw new NotImplementedException();
+            if (!_gridAddressScheme.IsAddressValid(gridLabel))
+            {
+                throw new GridAddressFormatException(gridLabel);
+            }
+
+            var address = _gridAddressScheme.GetGridAddressForLabel(gridLabel);
+
+            if (address.Row > _gridConstraints.RowCount
+                || address.Column > _gridConstraints.ColumnCount * 2)
+            {
+                throw new GridAddressOutOfBoundsException(gridLabel);
+            }
+
+            var isLeftTri = address.Column % 2 == 1;
+            var column = (address.Column - 1) / 2;
+            var row = address.Row - 1;
+
+            var topLeftPoint = new Point(
+                column * _gridConstraints.CellSpan,
+                row * _gridConstraints.CellSpan
+            );
+
+            var bottomRightPoint = new Point(
+                (column + 1) * _gridConstraints.CellSpan,
+                (row + 1) * _gridConstraints.CellSpan
+            );
+
+            var adjacentPoint = new Point(
+                isLeftTri ? column * _gridConstraints.CellSpan : (column + 1) * _gridConstraints.CellSpan,
+                isLeftTri ? row + 1 * _gridConstraints.CellSpan : row * _gridConstraints.CellSpan
+            );
+
+            return new Triangle(topLeftPoint, bottomRightPoint, adjacentPoint, address);
         }
 
         #endregion
