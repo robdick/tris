@@ -4,7 +4,7 @@ This repository contains two projects to provide an example of a working Web Api
 ## Project Overview
 The goal is to provide a working api that provides endpoints to return triangle labels or positions laid out on a 2 dimensional grid resembling the extract below:
 
-[logo]: https://github.com/robdick/tris/.assets/grid.png 'grid representation'
+![alt text](.assets/grid.png "grid representation")
 
 This grid must then be able to be queried for any triangle by giving either:
 - The label e.g A1
