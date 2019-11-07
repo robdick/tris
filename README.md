@@ -63,14 +63,18 @@ client - http://localhost:5001
  - Ensure Docker for Mac, Windows or Linux is installed
 
 #### Running
-Execute the following commands from the repository root:
+Execute the following commands from the repository root to spin up a cluster with both the API and Angular client (running in an nginx based container):
 
 ```bash
 docker-compose build
 docker-compose up
 ```
 
-This will build both
+You can stop the cluster with by executing:
+
+```bash
+docker-compose down
+```
 
 ### Manual execution
 
