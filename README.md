@@ -26,15 +26,17 @@ A shared library that maintains grid constraints, grid address labelling and tri
 ##### Contraints
 Grid constraints are configurable and although not within scope of this exercise the addressing of triangle cells also accomodates growth in the number of rows or columns of the grid contstraints. As the specifications of this excersise limits the grid to 6 rows (A-F) and 12 columns (1-12) the lettering scheme for a row would run out beyond the 26th character Z.  A solution was to provide a base 26 encoding to the lettering such that:
 
-row 1 - 'A'
-row 26 - 'Z'
-.
-.
-row 27 - 'AA'
-.
-to
-.
-row max (upper unsigned int value - 2,147,483,647) - 'FXSHRXW'
+```
+  row 1 - 'A'
+  row 26 - 'Z'
+  .
+  .
+  row 27 - 'AA'
+  .
+  to
+  .
+  row max (upper unsigned int value - 2,147,483,647) - 'FXSHRXW'
+```
 
 ##### Sample.Tris.Tests
 Unit test project associated with the Sample.Tris.Lib project
@@ -97,8 +99,8 @@ This will spin up the front end angular app on url http://localhost:4200 configu
 Items complete meet the goals required, additional
 
 - [X] Api Functionality
-- [ ] Api Swagger
+- [X] Api Swagger
 - [X] Web Api Test harness page
 - [X] Postman Collection and Environment
 - [X] Angular based exemplar SPA app
-- [ ] Docker compose based build and execution
+- [X] Docker compose based build and execution
