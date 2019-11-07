@@ -32,13 +32,15 @@ namespace Sample.Tris.Lib.Tests.Grid
         [InlineData(1, 1, "A1")]
         [InlineData(26, 1, "Z1")]
         [InlineData(27, 1, "AA1")]
-        [InlineData(int.MaxValue, 1, "MWLQKWU1")]
+        [InlineData(int.MaxValue, 1, "FXSHRXW1")]
         public void GetGridAddressForRowColumn_WithValidArguments_ReturnsValidGridAddress(int row, int column, string expectedAddress)
         {
             var address = _gridAddressScheme.GetGridAddressForRowColumn(row, column);
 
             Assert.Equal(row, address.Row);
             Assert.Equal(column, address.Column);
+            Assert.Equal(expectedAddress, address.Label);
+
         }
 
         #endregion
