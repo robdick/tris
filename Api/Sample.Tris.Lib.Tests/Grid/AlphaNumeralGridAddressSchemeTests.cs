@@ -19,13 +19,13 @@ namespace Sample.Tris.Lib.Tests.Grid
         [Fact]
         public void GetGridAddressForRowColumn_WithRowLessThan1_ThrowsException()
         {
-            GridAddressOutOfBoundsException ex = Assert.Throws<GridAddressOutOfBoundsException>(() => _gridAddressScheme.GetGridAddressForRowColumn(0, 1));
+            GridCoordsOutOfBoundsException ex = Assert.Throws<GridCoordsOutOfBoundsException>(() => _gridAddressScheme.GetGridAddressForRowColumn(0, 1));
         }
 
         [Fact]
         public void GetGridAddressForRowColumn_WithColumnLessThan1_ThrowsException()
         {
-            var ex = Assert.Throws<GridAddressOutOfBoundsException>(() => _gridAddressScheme.GetGridAddressForRowColumn(1, 0));
+            var ex = Assert.Throws<GridCoordsOutOfBoundsException>(() => _gridAddressScheme.GetGridAddressForRowColumn(1, 0));
         }
 
         [Theory]
@@ -58,17 +58,15 @@ namespace Sample.Tris.Lib.Tests.Grid
         }
 
         [Fact]
-        public void IsAddressValid_WithNullArg_ThrowsArgumentNullException()
+        public void IsAddressValid_WithNullArg_ReturnsFalse()
         {
-            ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => _gridAddressScheme.IsAddressValid(null));
-            Assert.Equal("label", ex.ParamName);
+            Assert.False(_gridAddressScheme.IsAddressValid(null));
         }
 
         [Fact]
-        public void IsAddressValid_WithEmptyArg_ThrowsArgumentNullException()
+        public void IsAddressValid_WithEmptyArg_ReturnsFalse()
         {
-            ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => _gridAddressScheme.IsAddressValid(""));
-            Assert.Equal("label", ex.ParamName);
+            Assert.False(_gridAddressScheme.IsAddressValid(""));
         }
 
         [Theory]
@@ -84,17 +82,17 @@ namespace Sample.Tris.Lib.Tests.Grid
         #region GetGridAddressForLabel
 
         [Fact]
-        public void GetGridAddressForLabel_WithNullArg_ThrowsArgumentNullException()
+        public void GetGridAddressForLabel_WithNullArg_ThrowsGridAddressFormatException()
         {
-            ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => _gridAddressScheme.GetGridAddressForLabel(null));
-            Assert.Equal("label", ex.ParamName);
+            GridAddressFormatException ex = Assert.Throws<GridAddressFormatException>(() => _gridAddressScheme.GetGridAddressForLabel(null));
+            Assert.Equal("Grid address '' has an invalid format.", ex.Message);
         }
 
         [Fact]
-        public void GetGridAddressForLabel_WithEmptyArg_ThrowsArgumentNullException()
+        public void GetGridAddressForLabel_WithEmptyArg_ThrowsGridAddressFormatException()
         {
-            ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => _gridAddressScheme.GetGridAddressForLabel(""));
-            Assert.Equal("label", ex.ParamName);
+            GridAddressFormatException ex = Assert.Throws<GridAddressFormatException>(() => _gridAddressScheme.GetGridAddressForLabel(""));
+            Assert.Equal("Grid address '' has an invalid format.", ex.Message);
         }
 
         [Theory]
@@ -104,7 +102,7 @@ namespace Sample.Tris.Lib.Tests.Grid
         public void GetGridAddressForLabel_WithInvalidLabel_ThrowsInvalidGridReferenceException(string label)
         {
             GridAddressFormatException ex = Assert.Throws<GridAddressFormatException>(() => _gridAddressScheme.GetGridAddressForLabel(label));
-            Assert.Equal(string.Format("Grid reference '{0}' is invalid.", label), ex.Message);
+            Assert.Equal(string.Format("Grid address '{0}' has an invalid format.", label), ex.Message);
         }
 
         [Theory]

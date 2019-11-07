@@ -127,7 +127,7 @@ namespace Sample.Tris.Lib.Tests.Services
                 .Setup(x => x.GetGridAddressForLabel(TEST_LABEL_VALID_MIN))
                 .Returns(new GridAddress(row, column, TEST_LABEL_VALID_MIN));
 
-            Assert.Throws<GridAddressFormatException>(
+            Assert.Throws<GridAddressOutOfBoundsException>(
                () => _triangleGridQueryService.GetTriangleForGridLabel(TEST_LABEL_VALID_MIN));
 
             _gridAddressSchemeMock.Verify(x => x.GetGridAddressForLabel(TEST_LABEL_VALID_MIN), Times.Once);
