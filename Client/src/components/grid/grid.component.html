@@ -1,0 +1,9 @@
+<p>
+This is a basic angular app that integrates with the API. 3 Random points are generated every 100ms and provided in a request to the points query endpoint to find a match.  The search will stop as soon as a match is found.
+</p>
+
+<canvas #triscanvas></canvas>
+
+<button (click)="toggleRandomPointSearch()">{{buttonText}}</button>
+
+<label>{{foundMessage}}</label>

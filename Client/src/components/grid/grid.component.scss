@@ -1,0 +1,29 @@
+:host {
+  display: absolute;
+
+  p {
+    color: #ffffff;
+    padding: 15px 30px;
+  }
+
+  canvas {
+    position: absolute;
+  }
+
+  button {
+    position: absolute;
+    z-index: 9999;
+    left: 30px;
+    top: 70px;
+    padding: 10px 15px;
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+
+  label {
+    position: absolute;
+    left: 100px;
+    top: 70px;
+    color: #22bb22;
+  }
+}
