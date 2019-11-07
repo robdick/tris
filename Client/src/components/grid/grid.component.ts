@@ -64,6 +64,10 @@ export class GridComponent implements AfterViewInit {
     }
   }
 
+  public get nativeElementStyle() {
+    return this.trisCanvas.nativeElement.style;
+  }
+
   private setupPixi() {
     this.viewWidth = window.innerWidth;
     this.viewHeight = window.innerHeight;
@@ -83,7 +87,7 @@ export class GridComponent implements AfterViewInit {
     this.gridGraphics = gfx;
 
     this.gridContainer = new Pixi.Container();
-    this.gridContainer.position.set(30,80);
+    //this.gridContainer.position.set(30,30);
 
     this.gridContainer.addChild(this.gridGraphics);
     this.pixiStage.addChild(this.gridContainer);
@@ -111,6 +115,16 @@ export class GridComponent implements AfterViewInit {
     this.constraints.viewCellSpan =
       this.constraints.cellSpan * GridComponent.GRID_VISUAL_SCALEFACTOR;
 
+    const canvasWidth = this.constraints.viewCellSpan * this.constraints.columnCount;
+    const canvasHeight = this.constraints.viewCellSpan * this.constraints.rowCount;
+
+    this.nativeElementStyle.width = canvasWidth + 'px';
+    this.nativeElementStyle.height = canvasHeight + 'px';
+    this.pixiApp.screen.width = canvasWidth;
+    this.pixiApp.screen.width = canvasHeight;
+
+    this.pixiApp.renderer.resize(canvasWidth, canvasHeight);
+
     this.drawGrid(this.constraints);
 
     setInterval(() => {
@@ -128,8 +142,8 @@ export class GridComponent implements AfterViewInit {
     gfx.clear();
     gfx.lineStyle(0);
 
-    for (let y=0; y<constraints.columnCount; y++) {
-      for (let x=0; x<constraints.rowCount; x++) {
+    for (let y=0; y<constraints.rowCount; y++) {
+      for (let x=0; x<constraints.columnCount; x++) {
         let posx = x * constraints.viewCellSpan;
         let posy = y * constraints.viewCellSpan;
 
@@ -159,7 +173,8 @@ export class GridComponent implements AfterViewInit {
       .then(triangle => {
         this.foundMessage = `Found triangle match for points, api payload: ${JSON.stringify(triangle)}`;
         this.stopRandomPointSearch();
-      });
+      })
+      .catch(() => {});
   }
 
   private randomPointOnGrid(): Point {

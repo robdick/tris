@@ -1,29 +1,43 @@
 :host {
-  display: absolute;
+  display: flex;
+  justify-items: flex-start;
+  flex-direction: row;
+
+  .row {
+    padding: 30px;
+  }
 
   p {
+    position: relative;
+    max-width: 600px;
+
     color: #ffffff;
-    padding: 15px 30px;
   }
 
   canvas {
     position: absolute;
+    right: 30px;
+    top: 30px;
   }
 
   button {
-    position: absolute;
-    z-index: 9999;
     left: 30px;
-    top: 70px;
+    top: 30px;
+
     padding: 10px 15px;
+
     font-size: 13px;
     text-transform: uppercase;
   }
 
-  label {
-    position: absolute;
-    left: 100px;
-    top: 70px;
+  .message {
+    display: block;
+    width: 400px;
+    margin-top: 10px;
+
+    line-height: 22px;
+    font-family: monospace;
+
     color: #22bb22;
   }
 }
