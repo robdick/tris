@@ -23,6 +23,19 @@ In the /Api folder, the API implementation is further split into two main dotnet
 ##### Sample.Tris.Lib
 A shared library that maintains grid constraints, grid address labelling and triangle query operations.
 
+##### Contraints
+Grid constraints are configurable and although not within scope of this exercise the addressing of triangle cells also accomodates growth in the number of rows or columns of the grid contstraints. As the specifications of this excersise limits the grid to 6 rows (A-F) and 12 columns (1-12) the lettering scheme for a row would run out beyond the 26th character Z.  A solution was to provide a base 26 encoding to the lettering such that:
+
+row 1 - 'A'
+row 26 - 'Z'
+.
+.
+row 27 - 'AA'
+.
+to
+.
+row max (upper unsigned int value - 2,147,483,647) - 'FXSHRXW'
+
 ##### Sample.Tris.Tests
 Unit test project associated with the Sample.Tris.Lib project
 
@@ -40,7 +53,6 @@ Clone this repository and follow the options below for running the solution e2e:
 
 ### Docker based execution
 
-[TBD]
 
 ### Manual execution
 
@@ -59,7 +71,7 @@ dotnet restore
 dotnet run
 ```
 
-This will spin up the API and make it available at http://localhost:5000 where a test harness page is visible allowing for sampling of the api endpoints using a jquery and ASP.NET razor pages.  Note that TLS has been disabled and the cors policy has been deliberately relaxed for the purpose of this sample solution
+This will spin up the API and make it available at http://localhost:5000 where a test harness page is visible allowing for sampling of the api endpoints using a jquery and ASP.NET razor pages.  Note that TLS has been disabled and the cors policy has been deliberately relaxed for the purpose of this sample solution.
 
 A few request scenarios can be found in the bundled postman (https://www.getpostman.com/) collection you can find in /Api/Postman. Both the collection and environment files can be imported into a running postman instance.  The environment is configured to point at the locally running API host.
 
@@ -88,5 +100,5 @@ Items complete meet the goals required, additional
 - [ ] Api Swagger
 - [X] Web Api Test harness page
 - [X] Postman Collection and Environment
-- [ ] Angular based exemplar SPA app
+- [X] Angular based exemplar SPA app
 - [ ] Docker compose based build and execution
