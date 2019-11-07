@@ -82,8 +82,11 @@ This will spin up the front end angular app on url http://localhost:4200 configu
 
 # Status
 
+Items complete meet the goals required, additional
+
 - [X] Api Functionality
 - [ ] Api Swagger
 - [X] Web Api Test harness page
 - [X] Postman Collection and Environment
-- [-] Angular based exemplar SPA app
+- [ ] Angular based exemplar SPA app
+- [ ] Docker compose based build and execution
