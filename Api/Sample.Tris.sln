@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Tris.Lib", "Sample.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Tris.Lib.Tests", "Sample.Tris.Lib.Tests\Sample.Tris.Lib.Tests.csproj", "{F48221EC-36E4-4E14-B396-4761638507DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Tris.WebApi.Tests", "Sample.Tris.WebApi.Tests\Sample.Tris.WebApi.Tests.csproj", "{D17D417E-2324-43B4-A6F7-616BA60164C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,17 @@ Global
 		{F48221EC-36E4-4E14-B396-4761638507DA}.Release|x64.Build.0 = Release|Any CPU
 		{F48221EC-36E4-4E14-B396-4761638507DA}.Release|x86.ActiveCfg = Release|Any CPU
 		{F48221EC-36E4-4E14-B396-4761638507DA}.Release|x86.Build.0 = Release|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Debug|x64.Build.0 = Debug|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Debug|x86.Build.0 = Debug|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Release|x64.ActiveCfg = Release|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Release|x64.Build.0 = Release|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Release|x86.ActiveCfg = Release|Any CPU
+		{D17D417E-2324-43B4-A6F7-616BA60164C5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
