@@ -14,10 +14,10 @@ The example grid constraints are:
 - Limit rows A-F
 - Limit columns 1-12
 
-### Repository Structure
+## Repository Structure
 The repository is into two main areas:
 
-#### Api
+### Api
 In the /Api folder, the API implementation is further split into two main dotnet core 3.0 projects, each with associated unit test projects:
 
 ##### Sample.Tris.Lib
@@ -32,7 +32,7 @@ An ASP.NET core 3.0 project providing the endpoints and triangle querying capabi
 ##### Sample.Tris.WebApi.Tests
 Unit test project associated with the Sample.Tris.WebApi project
 
-#### Client
+### Client
 In the /Client folder is an example Angular 8.0 based javascript front end providing an example integration with the API endpoints
 
 ## Building and running
@@ -40,9 +40,9 @@ Clone this repository and follow the options below for running the solution e2e:
 
 ### Docker based execution
 
-### Manual execution
-
 [TBD]
+
+### Manual execution
 
 #### Web API
 
@@ -59,22 +59,31 @@ dotnet restore
 dotnet run
 ```
 
-This will spin up the API and make it available at http://localhost:5000.  Note that TLS has been disabled and the cors policy has been deliberately relaxed for the purpose of this sample solution
+This will spin up the API and make it available at http://localhost:5000 where a test harness page is visible allowing for sampling of the api endpoints using a jquery and ASP.NET razor pages.  Note that TLS has been disabled and the cors policy has been deliberately relaxed for the purpose of this sample solution
 
 A few request scenarios can be found in the bundled postman (https://www.getpostman.com/) collection you can find in /Api/Postman. Both the collection and environment files can be imported into a running postman instance.  The environment is configured to point at the locally running API host.
 
-#### Front end
+
+#### SPA Front end
 
 ##### Requirements
 - windows or linux based OS
 - Node.js v10.15.1 or above
 
-#### Running
+##### Running
 ```bash
 cd Client
 npm install -g @angular/cli
 ng serve
 ```
 
-This will spin up the front end angular app on url http://localhost:4200 configured to point at the running API instance
+This will spin up the front end angular app on url http://localhost:4200 configured to point at the running API instance.  This is an additional element to this sample project.
 
+
+# Status
+
+- [X] Api Functionality
+- [ ] Api Swagger
+- [X] Web Api Test harness page
+- [X] Postman Collection and Environment
+- [-] Angular based exemplar SPA app

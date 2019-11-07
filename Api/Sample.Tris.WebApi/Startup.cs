@@ -50,6 +50,7 @@ namespace Sample.Tris.WebApi
             }
 
             app
+                .UseStaticFiles()
                 .UseRouting()
                 .UseAuthorization()
                 .UseCors(configurePolicy =>
@@ -62,7 +63,6 @@ namespace Sample.Tris.WebApi
                 {
                     endpoints.MapControllers();
                     endpoints.MapRazorPages();
-                    endpoints.
                 });
         }
     }
