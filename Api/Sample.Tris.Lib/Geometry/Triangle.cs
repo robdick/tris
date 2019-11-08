@@ -14,6 +14,7 @@ namespace Sample.Tris.Lib.Geometry
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <param name="p3"></param>
+        /// <param name="gridAddress"></param>
         public Triangle(Point p1, Point p2, Point p3, GridAddress gridAddress)
             => (P1, P2, P3, GridAddress) = (p1, p2, p3, gridAddress);
 
@@ -64,6 +65,6 @@ namespace Sample.Tris.Lib.Geometry
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => $"Triangle(Point({P1.X},{P1.Y}), Point({P2.X},{P2.Y}), Point({P3.X},{P3.Y}))";
+            => $"Triangle({P1.ToString()}, {P2.ToString()}, {P3.ToString()})";
     }
 }

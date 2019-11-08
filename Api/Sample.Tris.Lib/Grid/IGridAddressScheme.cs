@@ -15,8 +15,8 @@ namespace Sample.Tris.Lib.Grid
         /// <summary>
         ///
         /// </summary>
-        /// <param name="rowCount"></param>
-        /// <param name="colCount"></param>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
         /// <returns></returns>
         GridAddress GetGridAddressForRowColumn(int row, int column);
 

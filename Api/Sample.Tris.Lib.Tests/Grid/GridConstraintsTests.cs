@@ -3,7 +3,6 @@ namespace Sample.Tris.Lib.Tests.Grid
     using System;
     using Xunit;
     using Sample.Tris.Lib.Grid;
-    using Sample.Tris.Lib.Exceptions;
 
     public class GridConstraintsTests
     {

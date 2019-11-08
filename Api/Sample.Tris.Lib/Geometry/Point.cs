@@ -30,8 +30,8 @@ namespace Sample.Tris.Lib.Geometry
         /// <summary>
         ///
         /// </summary>
-        /// <param name="lhs"></param>
-        /// <param name="rhs"></param>
+        /// <param name="point"></param>
+        /// <param name="divisor"></param>
         /// <returns></returns>
         public static Point operator /(Point point, int divisor)
             => new Point(point.X / divisor, point.Y / divisor);

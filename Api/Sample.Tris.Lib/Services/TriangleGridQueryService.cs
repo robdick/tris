@@ -1,13 +1,12 @@
 namespace Sample.Tris.Lib.Services
 {
-    using System;
     using System.Linq;
     using Sample.Tris.Lib.Exceptions;
     using Sample.Tris.Lib.Geometry;
     using Sample.Tris.Lib.Grid;
 
     /// <summary>
-    /// Implements
+    ///
     /// </summary>
     public class TriangleGridQueryService : ITriangleGridQueryService
     {
@@ -73,9 +72,9 @@ namespace Sample.Tris.Lib.Services
         }
 
         /// <summary>
-        /// ///
+        ///
         /// </summary>
-        /// <param name="gridAddress"></param>
+        /// <param name="gridLabel"></param>
         /// <returns></returns>
         public Triangle GetTriangleForGridLabel(string gridLabel)
         {
@@ -121,7 +120,7 @@ namespace Sample.Tris.Lib.Services
         /// <summary>
         ///
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="point"></param>
         /// <returns></returns>
         private bool IsValidPoint(Point point)
         {

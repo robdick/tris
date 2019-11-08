@@ -1,9 +1,6 @@
 namespace Sample.Tris.Lib.Grid
 {
     using System;
-    using System.Linq;
-    using System.Text.RegularExpressions;
-    using Sample.Tris.Lib.Exceptions;
 
     /// <summary>
     /// Defines a triangle grid reference position
@@ -28,6 +25,7 @@ namespace Sample.Tris.Lib.Grid
         /// </summary>
         /// <param name="row"></param>
         /// <param name="column"></param>
+        /// <param name="label"></param>
         public GridAddress(int row, int column, string label)
         {
             if (row < 1)

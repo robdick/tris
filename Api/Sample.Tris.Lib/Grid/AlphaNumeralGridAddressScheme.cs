@@ -64,6 +64,8 @@ namespace Sample.Tris.Lib.Grid
         /// <summary>
         ///
         /// </summary>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
         /// <returns></returns>
         public GridAddress GetGridAddressForRowColumn(int row, int column)
         {
