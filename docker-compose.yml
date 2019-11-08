@@ -4,7 +4,11 @@ services:
         container_name: tris-api
         build: ./Api
         ports:
-            - "5000:80"
+          - "5000:80"
+        environment:
+          - TrisApiGridSettings__MaxColumns=6
+          - TrisApiGridSettings__MaxRows=6
+          - TrisApiGridSettings__CellSizeInPixels=10
     client:
         container_name: tris-client
         build: ./Client

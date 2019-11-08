@@ -25,6 +25,10 @@ RUN dotnet publish "./Sample.Tris.WebApi/Sample.Tris.WebApi.csproj" --output "..
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim
 WORKDIR /app
 
+ENV TrisApiGridSettings__MaxColumns=UNSET
+ENV TrisApiGridSettings__Rows unset=UNSET
+ENV TrisApiGridSettings__CellSizeInPixels=UNSET
+
 COPY --from=build-env /dist .
 EXPOSE 80 443
 ENTRYPOINT ["dotnet", "Sample.Tris.WebApi.dll"]
