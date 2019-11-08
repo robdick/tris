@@ -12,5 +12,5 @@ RUN npm run build
 
 FROM nginx:alpine
 
-COPY --from=build-env /usr/src/app/dist /usr/share/nginx/html
+COPY --from=build-env /usr/src/app/dist/tris-client /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
