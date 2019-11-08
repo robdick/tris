@@ -15,7 +15,7 @@ The example grid constraints are:
 - Limit columns 1-12
 
 ## Repository Structure
-The repository is into two main areas:
+The repository is into two main areas, Api and Client.
 
 ### Api
 In the /Api folder, the API implementation is further split into two main dotnet core 3.0 projects, each with associated unit test projects:
@@ -44,6 +44,10 @@ Unit test project associated with the Sample.Tris.Lib project
 ##### Sample.Tris.WebApi
 An ASP.NET core 3.0 project providing the endpoints and triangle querying capabilities integrating with the shared library.
 
+> Note, Running this project alone will provide the minumum requirements for this exercise as it provides the API and a web page at the root url containing a test harness to execute requests against the API (also see the [Postman](#postman) section if preferred)
+
+A swagger endpoint is available at /swagger to view the openapi based spec for this API.
+
 ##### Sample.Tris.WebApi.Tests
 Unit test project associated with the Sample.Tris.WebApi project
 
@@ -63,14 +67,15 @@ client - http://localhost:5001
  - Ensure Docker for Mac, Windows or Linux is installed
 
 #### Running
-Execute the following commands from the repository root to spin up a cluster with both the API and Angular client (running in an nginx based container):
+Execute the following commands from the repository root to spin up a cluster with both the API and Angular client (running in an nginx based container).
+
+Build and start cluster:
 
 ```bash
-docker-compose build
-docker-compose up
+docker-compose up -d --build
 ```
 
-You can stop the cluster with by executing:
+Stop the cluster:
 
 ```bash
 docker-compose down
@@ -95,10 +100,12 @@ dotnet run
 
 This will spin up the API and make it available at http://localhost:5000 where a test harness page is visible allowing for sampling of the api endpoints using a jquery and ASP.NET razor pages.  Note that TLS has been disabled and the cors policy has been deliberately relaxed for the purpose of this sample solution.
 
+###### Postman
 A few request scenarios can be found in the bundled postman (https://www.getpostman.com/) collection you can find in /Api/Postman. Both the collection and environment files can be imported into a running postman instance.  The environment is configured to point at the locally running API host.
 
 
-#### SPA Front end
+#### Angular front end
+This is a simple angular app that performs requests against the API every 50ms with random points. When a random set of points happens to match a triangle within the grid the requests stop and the API response is reported.  This app only consumes the api/triangles/query endpoint, please use the test harness within the actual API or the postman collection to execute all requests.
 
 ##### Requirements
 - windows or linux based OS
