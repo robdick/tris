@@ -6,8 +6,21 @@ namespace Sample.Tris.Lib.Grid
     using Sample.Tris.Lib.Exceptions;
 
     /// <summary>
-    ///
+    /// Defines a triangle grid address strategy.
     /// </summary>
+    /// <example>
+    /// Triangle references are limited to row positions A..FXSHRXW1 (1..int.MaxValue) and column positions 1..int.MaxValue.
+    /// <code>
+    /// // Valid reference
+    /// var scheme = new AlphaNumeralGridAddressScheme();
+    /// var gridAddress = scheme.GetGridAddressForLabel("A1");
+    /// ref.Row; // 'A'
+    /// ref.Column; // 1
+    ///
+    /// // Invalid reference
+    /// var ref = scheme.GetGridAddressForLabel("a1"); // throws GridAddressFormatException
+    /// </code>
+    /// </example>
     public class AlphaNumeralGridAddressScheme : IGridAddressScheme
     {
         private const int ALPHABET_MAX_CHARS = 26;

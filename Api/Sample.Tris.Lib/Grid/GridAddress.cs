@@ -3,25 +3,14 @@ namespace Sample.Tris.Lib.Grid
     using System;
 
     /// <summary>
-    /// Defines a triangle grid reference position
-    /// </summary>
-    /// <example>
-    /// Triangle references are limited to row positions [A..ZZZ] (note upper case) and column positions [1.99].
-    /// <code>
-    /// // Valid references
-    /// var ref = TriangleGridRef.Create("A1");
-    /// ref.Row; // 'A'
-    /// ref.Column; // 1
     ///
-    /// var ref = TriangleGridRef.Create("a1"); // throws InvalidCompositeKeyFormatException
-    /// </code>
-    /// </example>
+    /// </summary>
     public class GridAddress
     {
         const string POSITION_REGEX_MATCH = "^([A-Z]{1,3})([1-9][0-9]*)$";
 
         /// <summary>
-        ///
+        /// Defines an address label and abstract row,col for addressing grid elements.
         /// </summary>
         /// <param name="row"></param>
         /// <param name="column"></param>
