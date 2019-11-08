@@ -27,6 +27,7 @@ export class GridComponent implements AfterViewInit {
   private pixiStage: Pixi.Container;
   private gridContainer: Pixi.Container;
   private gridGraphics: Pixi.Graphics;
+  private defaultTextStyle: Pixi.TextStyle;
 
   private pointGfx: Pixi.Graphics[] = [];
 
@@ -39,6 +40,7 @@ export class GridComponent implements AfterViewInit {
 
   public ngAfterViewInit() {
     this.setupPixi();
+    this.setupTextStyle();
     this.setupGrid();
     this.setupPointSprites();
 
@@ -109,6 +111,14 @@ export class GridComponent implements AfterViewInit {
     }
   }
 
+  private setupTextStyle() {
+    this.defaultTextStyle = new Pixi.TextStyle({
+      fontSize: 13,
+      fontWeight: 'bold',
+      fill: '#ffffff'
+    });
+  }
+
   private async init() {
     this.constraints = await this.trisApi.getGridConstraints();
 
@@ -136,8 +146,9 @@ export class GridComponent implements AfterViewInit {
     }, 25);
   }
 
-  private drawGrid(constraints) {
+  private async drawGrid(constraints) {
     const gfx = this.gridGraphics;
+    const textFetches = [];
 
     gfx.clear();
     gfx.lineStyle(0);
@@ -155,8 +166,52 @@ export class GridComponent implements AfterViewInit {
         gfx.lineStyle(2);
         gfx.moveTo(posx, posy);
         gfx.lineTo(posx + constraints.viewCellSpan-2, posy + constraints.viewCellSpan-2);
+
+        const p1: Point = {
+          x: x * constraints.cellSpan,
+          y: y * constraints.cellSpan
+        };
+
+        const p2: Point = {
+          x: (x+1) * constraints.cellSpan,
+          y: y * constraints.cellSpan
+        };
+
+        const p3: Point = {
+          x: (x+1) * constraints.cellSpan,
+          y: (y+1) * constraints.cellSpan
+        };
+
+        const p4: Point = {
+          x: x * constraints.cellSpan,
+          y: (y+1) * constraints.cellSpan
+        };
+
+        textFetches.push({
+          x: posx + constraints.viewCellSpan * 0.25,
+          y: posy + constraints.viewCellSpan * 0.65,
+          promise: this.trisApi.findTriangleByPoints(p1,p3,p4)
+        });
+
+        textFetches.push({
+          x: posx + constraints.viewCellSpan * 0.65,
+          y: posy + constraints.viewCellSpan * 0.25,
+          promise: this.trisApi.findTriangleByPoints(p1,p3,p2)
+        });
       }
     }
+
+    textFetches.forEach(async (item) => {
+      const tri = await item.promise;
+      this.addText(tri.gridLabel, item.x, item.y, this.gridContainer);
+    });
+  }
+
+  private addText(text: string, x: number, y: number, container: Pixi.Container) {
+    const pixiText = new Pixi.Text(text, this.defaultTextStyle);
+    pixiText.x = x;
+    pixiText.y = y;
+    container.addChild(pixiText);
   }
 
   private doTurn() {
