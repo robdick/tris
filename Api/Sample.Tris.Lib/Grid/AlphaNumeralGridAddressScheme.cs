@@ -63,7 +63,7 @@ namespace Sample.Tris.Lib.Grid
             Group rowMatchGroup = match.Groups[1];
             Group colMatchGroup = match.Groups[2];
 
-            int row = GetIndexForAlphaEncoding(rowMatchGroup.Value) + 1;
+            int row = GetIndexForAlphaEncoding(rowMatchGroup.Value);
             int column = Convert.ToInt32(colMatchGroup.Value);
 
             if (!IsRowAndColumnInBounds(row, column))
@@ -124,7 +124,7 @@ namespace Sample.Tris.Lib.Grid
 
             for (int charIndex = label.Length - 1; charIndex >= 0; charIndex--)
             {
-                index += (int)(label[charIndex] - ALPHA_CHARCODE_ORIGIN) * pow;
+                index += (label[charIndex] - ALPHA_CHARCODE_ORIGIN + 1) * pow;
                 pow *= ALPHABET_MAX_CHARS;
             }
 

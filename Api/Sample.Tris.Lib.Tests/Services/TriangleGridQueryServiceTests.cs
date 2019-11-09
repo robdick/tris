@@ -6,6 +6,8 @@ namespace Sample.Tris.Lib.Tests.Services
     using Sample.Tris.Lib.Services;
     using Sample.Tris.Lib.Geometry;
     using Sample.Tris.Lib.Exceptions;
+    using System.Collections.Generic;
+    using System.Collections;
 
     public class TriangleGridQueryServiceTests
     {
@@ -142,10 +144,8 @@ namespace Sample.Tris.Lib.Tests.Services
         }
 
         [Theory]
-        [InlineData(1, 1, 0, 0, 10, 10, 0, 10)]
-        [InlineData(CONSTRAINTS_MAX_TRI_ROWS / 2, CONSTRAINTS_MAX_TRI_COLS / 2, 20, 20, 30, 30, 30, 20)]
-        [InlineData(CONSTRAINTS_MAX_TRI_ROWS, CONSTRAINTS_MAX_TRI_COLS, 50, 50, 60, 60, 60, 50)]
-        public void GetTriangleForGridLabel_WithValidLabel_ReturnsTriangle(int row, int column, int p1x, int p1y, int p2x, int p2y, int p3x, int p3y)
+        [ClassData(typeof(AllTrianglePositionsData))]
+        public void GetTriangleForGridLabel_ForAllGridPositions_ReturnsTriangles(int row, int column, int p1x, int p1y, int p2x, int p2y, int p3x, int p3y)
         {
             _gridAddressSchemeMock
                 .Setup(x => x.GetGridAddressForLabel(TEST_LABEL_VALID_MIN))
@@ -163,5 +163,37 @@ namespace Sample.Tris.Lib.Tests.Services
         }
 
         #endregion
+
+        private class AllTrianglePositionsData : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                bool isLeftTri;
+                int gridCol, gridRow;
+
+                for (int row = 1; row <= CONSTRAINTS_MAX_TRI_ROWS; row++)
+                {
+                    for (int col = 1; col <= CONSTRAINTS_MAX_TRI_COLS; col++)
+                    {
+                        isLeftTri = col % 2 == 1;
+                        gridCol = (col - 1) / 2;
+                        gridRow = row - 1;
+
+                        yield return new object[] {
+                            row,
+                            col,
+                            gridCol * CONSTRAINTS_CELL_SPAN,
+                            gridRow * CONSTRAINTS_CELL_SPAN,
+                            (gridCol+1) * CONSTRAINTS_CELL_SPAN,
+                            (gridRow+1) * CONSTRAINTS_CELL_SPAN,
+                            isLeftTri ? gridCol * CONSTRAINTS_CELL_SPAN: (gridCol+1) * CONSTRAINTS_CELL_SPAN,
+                            isLeftTri ? (gridRow+1) * CONSTRAINTS_CELL_SPAN : gridRow * CONSTRAINTS_CELL_SPAN
+                        };
+                    }
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
     }
 }

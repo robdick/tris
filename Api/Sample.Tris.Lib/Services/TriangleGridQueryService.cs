@@ -107,7 +107,7 @@ namespace Sample.Tris.Lib.Services
 
             var adjacentPoint = new Point(
                 isLeftTri ? column * _gridConstraints.CellSpan : (column + 1) * _gridConstraints.CellSpan,
-                isLeftTri ? row + 1 * _gridConstraints.CellSpan : row * _gridConstraints.CellSpan
+                isLeftTri ? (row + 1) * _gridConstraints.CellSpan : row * _gridConstraints.CellSpan
             );
 
             return new Triangle(topLeftPoint, bottomRightPoint, adjacentPoint, address);

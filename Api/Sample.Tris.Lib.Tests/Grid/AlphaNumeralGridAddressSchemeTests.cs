@@ -107,13 +107,23 @@ namespace Sample.Tris.Lib.Tests.Grid
         }
 
         [Theory]
-        [InlineData("A1", 1, 1)]
-        [InlineData("F12", 6, 12)]
-        public void GetGridAddressForLabel_ReturnsAddress(string label, int expectedRow, int expectedColumn)
+        [InlineData("A", 1, 1)]
+        [InlineData("Z", 1, 26)]
+        [InlineData("AA", 1, 27)]
+        [InlineData("AAA", 1, 703)]
+        [InlineData("FXSHRXW", 1, int.MaxValue)]
+        [InlineData("A", int.MaxValue, 1)]
+        [InlineData("Z", int.MaxValue, 26)]
+        [InlineData("AA", int.MaxValue, 27)]
+        [InlineData("AAA", int.MaxValue, 703)]
+        [InlineData("FXSHRXW", int.MaxValue, int.MaxValue)]
+        public void GetGridAddressForLabel_ReturnsAddress(string labelRow, int labelCol, int expectedRow)
         {
-            var address = _gridAddressScheme.GetGridAddressForLabel(label);
+            var label = $"{labelRow}{labelCol}";
+            var address = _gridAddressScheme.GetGridAddressForLabel($"{labelRow}{labelCol}");
+
             Assert.Equal(expectedRow, address.Row);
-            Assert.Equal(expectedColumn, address.Column);
+            Assert.Equal(labelCol, address.Column);
             Assert.Equal(label, address.Label);
         }
 
